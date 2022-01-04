@@ -3,16 +3,18 @@ package ru.job4j.di;
 public class StartUI {
 
     private Store store;
-    private ConsoleInput input;
+//    private ConsoleInput input;
+//
+//    public StartUI(ConsoleInput input) {
+//        this.input = input;
+//    }
 
-    public StartUI(Store store, ConsoleInput input) {
+    public StartUI(Store store) {
         this.store = store;
-        this.input = input;
     }
 
-    public void add(String value, String info) {
+    public void add(String value) {
         store.add(value);
-        input.askStr(info);
     }
 
     public void print() {
@@ -20,4 +22,8 @@ public class StartUI {
             System.out.println(str);
         }
     }
+
+//    public void scan(String info) {
+//        input.askStr(info);
+//    }
 }

@@ -8,6 +8,6 @@ public class ConsoleInput {
 
     public String askStr(String question) {
         System.out.println(question);
-        return scanner.nextLine();
+        return scanner.next();
     }
 }

@@ -9,8 +9,8 @@ public class Main {
 
         StartUI ui = context.get(StartUI.class);
 
-        ui.add("Petr Arsentev", "Hello");
-        ui.add("Sergey Pustov", "surname");
+        ui.add("Petr Arsentev");
+        ui.add("Sergey Pustov");
         ui.print();
     }
 }
