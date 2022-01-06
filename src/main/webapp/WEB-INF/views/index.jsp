@@ -23,14 +23,26 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Названия</th>
+            <th scope="col">№</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Адрес</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${auto}" var="auth">
+        <c:forEach items="${accident}" var="accidents">
             <tr>
                 <td>
-                    <c:out value="${auth}"/>
+                    <c:out value="${accidents.id}"/>
+                </td>
+                <td>
+                    <c:out value="${accidents.name}"/>
+                </td>
+                <td>
+                    <c:out value="${accidents.text}"/>
+                </td>
+                <td>
+                    <c:out value="${accidents.address}"/>
                 </td>
             </tr>
         </c:forEach>
