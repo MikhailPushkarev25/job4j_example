@@ -29,14 +29,9 @@ public class AccidentControl {
         return "redirect:/";
     }
 
-    @GetMapping("/edit")
-    public String edit() {
-        return "accident/edit";
-    }
-
-    @PostMapping("/update")
-    public String update(@ModelAttribute Accident accident) {
-        service.saveAccident(accident);
-        return "redirect:/";
+    @GetMapping
+    public String update(@RequestParam("id") int id, Model model) {
+        model.addAttribute("accident", service.findById(id));
+        return "accident/update";
     }
 }
