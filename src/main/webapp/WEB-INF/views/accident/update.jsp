@@ -22,8 +22,15 @@
       <td>Статьи:</td>
       <td>
         <select name="rIds" multiple>
-          <c:forEach var="rule" items="${rules}" >
-            <option value="${rule.id}">${rule.name}</option>
+          <c:forEach var="rule" items="${rules}">
+            <c:set var="selected" value="false"/>
+            <c:forEach var="accidentrule" items="${accidentrules}">
+              <c:if test="${rule.id == accidentrule.id}">
+                <c:set var="selected" value="true"/>
+              </c:if>
+            </c:forEach>
+            <option value="${rule.id}" <c:if
+                    test="${selected == 'true'}"> selected</c:if>>${rule.name}</option>
           </c:forEach>
         </select>
     </tr>

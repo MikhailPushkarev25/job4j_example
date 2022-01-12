@@ -1,10 +1,11 @@
 package ru.job4j.accident.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentMem;
+import ru.job4j.accident.repository.*;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -13,51 +14,57 @@ import java.util.Set;
 @Service
 public class AccidentService {
 
-    private AccidentMem mem;
+    private final AccidentRepository acc;
+    private final AccidentTypeRepository accType;
+    private final RuleRepository rule;
 
-    public AccidentService(AccidentMem mem) {
-        this.mem = mem;
+    public AccidentService(AccidentRepository acc,
+                           AccidentTypeRepository accType,
+                           RuleRepository rule) {
+        this.acc = acc;
+        this.accType = accType;
+        this.rule = rule;
     }
 
+    @Transactional
     public Collection<Accident> findAllAccident() {
-        return mem.findAllAccident();
+        return (Collection<Accident>) acc.findAll();
     }
 
+    @Transactional
     public Collection<AccidentType> findAllAccidentType() {
-        return mem.findAllAccidentType();
+        return (Collection<AccidentType>) accType.findAll();
     }
 
+    @Transactional
     public Collection<Rule> findAllRule() {
-        return mem.findAllRule();
+        return (Collection<Rule>) rule.findAll();
     }
 
+    @Transactional
     public void saveAccident(Accident accident, String[] str) {
-        accident.setType(findByIdAccidentType(accident.getType().getId()));
-        Set<Rule> rules = new HashSet<>();
-        for (String line : str) {
-            rules.add(findByIdRule(Integer.parseInt(line)));
+        if (str != null) {
+            Set<Rule> rules = new HashSet<>();
+            for (String id : str) {
+                rules.add(findByIdRule(Integer.parseInt(id)));
+            }
+            accident.setRules(rules);
         }
-        accident.setRules(rules);
-        mem.saveAccident(accident);
+        acc.save(accident);
     }
 
-    public void saveAccidentType(AccidentType accidentType) {
-        mem.saveType(accidentType);
-    }
-
-    public void saveRules(Rule rule) {
-        mem.saveRule(rule);
-    }
-
+    @Transactional
     public Accident findById(int id) {
-        return mem.findById(id);
+        return acc.findAccidentById(id);
     }
 
-    public AccidentType findByIdAccidentType(int id) {
-        return mem.findBiIdAccidentType(id);
+    @Transactional
+    public AccidentType findByIdType(int id) {
+        return accType.findById(id).orElse(null);
     }
 
+    @Transactional
     public Rule findByIdRule(int id) {
-        return mem.findByIdRule(id);
+        return rule.findById(id).orElse(null);
     }
 }

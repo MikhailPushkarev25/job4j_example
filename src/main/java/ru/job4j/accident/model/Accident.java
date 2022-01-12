@@ -1,22 +1,33 @@
 package ru.job4j.accident.model;
 
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "accident")
 public class Accident {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String text;
     private String address;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
     private AccidentType type;
-    private Set<Rule> rules;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Rule> rules = new HashSet<>();
 
     public Accident() {
     }
 
-    public Accident(int id, String name, String text, String address, AccidentType type, Set<Rule> rules) {
-        this.id = id;
+    public Accident(String name, String text, String address, AccidentType type, Set<Rule> rules) {
         this.name = name;
         this.text = text;
         this.address = address;
@@ -73,21 +84,23 @@ public class Accident {
         this.rules = rules;
     }
 
+    public void addRule(Rule rule) {
+        if (rules == null) {
+            rules = new HashSet<>();
+        }
+        rules.add(rule);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Accident accident = (Accident) o;
-        return id == accident.id
-                && Objects.equals(name, accident.name)
-                && Objects.equals(text, accident.text)
-                && Objects.equals(address, accident.address)
-                && Objects.equals(type, accident.type)
-                && Objects.equals(rules, accident.rules);
+        return id == accident.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, text, address, type, rules);
+        return Objects.hash(id);
     }
 }

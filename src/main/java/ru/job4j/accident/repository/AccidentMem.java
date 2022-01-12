@@ -9,7 +9,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
 public class AccidentMem {
 
     private static final AtomicInteger ACCIDENT_ID = new AtomicInteger(4);
@@ -21,32 +20,32 @@ public class AccidentMem {
     private final Map<Integer, Rule> ruleSet = new ConcurrentHashMap<>();
 
     private AccidentMem() {
-        AccidentType type = AccidentType.of(1, "Две машины");
-        AccidentType type1 = AccidentType.of(2, "Машина и человек");
-        AccidentType type2 = AccidentType.of(3, "Машина и велосипед");
-        AccidentType type3 = AccidentType.of(4, "Машина и пешеход");
+        AccidentType type = AccidentType.of("Две машины");
+        AccidentType type1 = AccidentType.of("Машина и человек");
+        AccidentType type2 = AccidentType.of("Машина и велосипед");
+        AccidentType type3 = AccidentType.of("Машина и пешеход");
 
-        Set<Rule> rules = Set.of(Rule.of(1, "list 1"));
-        Set<Rule> rules1 = Set.of(Rule.of(2, "list 2"));
-        Set<Rule> rules2 = Set.of(Rule.of(3, "list 3"));
-        Set<Rule> rules3 = Set.of(Rule.of(4, "list 4"));
+        Set<Rule> rules = Set.of(Rule.of("list 1"));
+        Set<Rule> rules1 = Set.of(Rule.of("list 2"));
+        Set<Rule> rules2 = Set.of(Rule.of("list 3"));
+        Set<Rule> rules3 = Set.of(Rule.of("list 4"));
 
-        accidents.put(1, new Accident(1, "Mikhail", "Превысил скорость", "Пр-кт Ленина дом 4", type, rules));
-        accidents.put(2, new Accident(2, "Roman", "Не пропустил пешехода", "г.Нижний Новгород, ул. Бурденко д3", type1, rules1));
+        accidents.put(1, new Accident("Mikhail", "Превысил скорость", "Пр-кт Ленина дом 4", type, rules));
+        accidents.put(2, new Accident("Roman", "Не пропустил пешехода", "г.Нижний Новгород, ул. Бурденко д3", type1, rules1));
         accidents.put(3, new Accident(
-                3, "Ksenia", "Проехала на красный свет", "г.Нижний Новгород, ул.Адмирала Макакрова д4", type2, rules2));
+                "Ksenia", "Проехала на красный свет", "г.Нижний Новгород, ул.Адмирала Макакрова д4", type2, rules2));
         accidents.put(4, new Accident(
-                4, "Nikolay", "Осуществил наезд на стоп линию", "г.Нижний Новгород, ул.Голубева д 10", type3, rules3));
+               "Nikolay", "Осуществил наезд на стоп линию", "г.Нижний Новгород, ул.Голубева д 10", type3, rules3));
 
-        types.put(1, AccidentType.of(1, "Две машины"));
-        types.put(2, AccidentType.of(2, "Машина и человек"));
-        types.put(3, AccidentType.of(3, "Машина и велосипед"));
-        types.put(4, AccidentType.of(4, "Машина и пешеход"));
+        types.put(1, AccidentType.of("Две машины"));
+        types.put(2, AccidentType.of("Машина и человек"));
+        types.put(3, AccidentType.of("Машина и велосипед"));
+        types.put(4, AccidentType.of("Машина и пешеход"));
 
-        ruleSet.put(1, Rule.of(1, "list 1"));
-        ruleSet.put(2, Rule.of(2, "list 2"));
-        ruleSet.put(3, Rule.of(3, "list 3"));
-        ruleSet.put(4, Rule.of(4, "list 4"));
+        ruleSet.put(1, Rule.of("list 1"));
+        ruleSet.put(2, Rule.of("list 2"));
+        ruleSet.put(3, Rule.of("list 3"));
+        ruleSet.put(4, Rule.of("list 4"));
     }
 
     public Collection<Accident> findAllAccident() {

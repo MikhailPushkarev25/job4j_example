@@ -7,13 +7,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.model.AccidentType;
-import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.service.AccidentService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class AccidentControl {
@@ -23,6 +20,7 @@ public class AccidentControl {
     public AccidentControl(AccidentService service) {
         this.service = service;
     }
+
 
     @GetMapping("/create")
     public String create(Model model) {
@@ -40,9 +38,12 @@ public class AccidentControl {
 
     @GetMapping
     public String update(@RequestParam("id") int id, Model model) {
+        Accident accident = service.findById(id);
+        model.addAttribute("accident", accident);
+        model.addAttribute("typeid", accident.getType().getId());
         model.addAttribute("rules", service.findAllRule());
         model.addAttribute("types", service.findAllAccidentType());
-        model.addAttribute("accident", service.findById(id));
+        model.addAttribute("accidentrules", new ArrayList<>(accident.getRules()));
         return "accident/update";
     }
 }
