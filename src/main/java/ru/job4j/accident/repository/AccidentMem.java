@@ -30,11 +30,11 @@ public class AccidentMem {
         Set<Rule> rules2 = Set.of(Rule.of("list 3"));
         Set<Rule> rules3 = Set.of(Rule.of("list 4"));
 
-        accidents.put(1, new Accident("Mikhail", "Превысил скорость", "Пр-кт Ленина дом 4", type, rules));
-        accidents.put(2, new Accident("Roman", "Не пропустил пешехода", "г.Нижний Новгород, ул. Бурденко д3", type1, rules1));
-        accidents.put(3, new Accident(
+        accidents.put(1, new Accident(1, "Mikhail", "Превысил скорость", "Пр-кт Ленина дом 4", type, rules));
+        accidents.put(2, new Accident(2, "Roman", "Не пропустил пешехода", "г.Нижний Новгород, ул. Бурденко д3", type1, rules1));
+        accidents.put(3, new Accident(3,
                 "Ksenia", "Проехала на красный свет", "г.Нижний Новгород, ул.Адмирала Макакрова д4", type2, rules2));
-        accidents.put(4, new Accident(
+        accidents.put(4, new Accident(4,
                "Nikolay", "Осуществил наезд на стоп линию", "г.Нижний Новгород, ул.Голубева д 10", type3, rules3));
 
         types.put(1, AccidentType.of("Две машины"));
